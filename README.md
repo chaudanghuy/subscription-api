@@ -2,16 +2,16 @@
 
 Simple subscription platform of a REST API with Laravel 9
 
-## Setup Docker
-
-```
-    $ docker-compose up -d --build     
-```
-
 ## Set Environment
 
 ```
     $ cp .env.example .env
+```
+
+## Setup Docker
+
+```
+    $ docker-compose up -d --build     
 ```
 
 ## Set the application key
