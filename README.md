@@ -32,6 +32,9 @@ Simple subscription platform of a REST API with Laravel 9
    $ docker exec laravel-app php artisan emails:subscriber
 ```
 
+![image](https://user-images.githubusercontent.com/103549080/188579142-0d2516e7-b31d-4903-808e-c5d08b1c0e44.png)
+
+
 ## API Specification
 
 This application adheres to the api specifications set by the [Postman]
