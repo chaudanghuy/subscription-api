@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Website;
 use App\Repositories\PostRepository;
 use App\Repositories\WebsiteRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -45,12 +46,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post = Post::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title, '-'),
-            'description' => $request->description,
-            'website_id' => $this->websiteRepository->getById($request->website_id)->id
-        ]);
+        $post = $this->postRepository->create($request);
 
         return (new PostResource($post))
             ->response()
@@ -64,7 +60,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    {
+    {        
         return (new PostResource($post))->response();
     }
 
@@ -79,12 +75,7 @@ class PostController extends Controller
     {
         $post = $this->postRepository->getPostById($id);
 
-        $post->update([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title, '-'),
-            'description' => $request->description,
-            'website_id' => Website::where('id', $request->website_id)->first()->id
-        ]);
+        $this->postRepository->update($request, $id);
 
         return (new PostResource($post))
             ->response()

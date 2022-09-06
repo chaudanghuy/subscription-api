@@ -8,7 +8,7 @@ class WebsiteRepository
 {
     public function getById($id)
     {
-        return Website::findFirst($id);
+        return Website::where('id', $id)->first();
     }
 
     public function deleteById($id)

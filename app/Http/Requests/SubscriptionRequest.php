@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class SubscriptionRequest extends FormRequest
 {
@@ -26,14 +27,14 @@ class SubscriptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'email_id' => 'required|string|exists:clients,id',
-            'website_id' => 'required|string|exists:websites,id',
+            'client_id' => 'required|exists:clients,id',
+            'website_id' => 'required|exists:websites,id',
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
-        throw new \HttpResponseException(response()->json([
+        throw new HttpResponseException(response()->json([
             'errors' => $validator->errors(),
             'status' => Response::HTTP_BAD_REQUEST,
         ], Response::HTTP_BAD_REQUEST));

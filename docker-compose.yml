@@ -5,6 +5,9 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        volumes:
+            - .:/app:cached
+            - laravel_composer_bundle:/app/vendor:delegated
         ports:
             -   8000:8000
         depends_on:
@@ -12,13 +15,16 @@ services:
 
     db:
         container_name: laravel-db
-        image: mysql:5.7.22
+        image: mysql:5.7.22        
         environment:
             MYSQL_DATABASE: subscription
             MYSQL_USER: admin
             MYSQL_PASSWORD: admin
             MYSQL_ROOT_PASSWORD: root
         volumes:
-            -  ./storage/dbdata:/var/lib/mysql
+            -  ./storage/dbdata:/var/lib/mysql            
         ports:
             -   33060:3306
+
+volumes:
+    laravel_composer_bundle:
